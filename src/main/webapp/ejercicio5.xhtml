@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      >
+    <h:head>
+    </h:head>
+    <h:body>
+        <h:form>
+
+            REGISTRO DE EVENTO<br />
+            Código empleado: <h:inputText id="nombres"
+                                          value="#{registroEvento.nombres}"></h:inputText><br />
+
+            Horarios disponibles:
+            <h:selectManyCheckbox value="#{registroEvento.sisop}" layout="pageDirection">
+                <f:selectItem itemValue="7:20 - 9:20" itemLabel="7:20 - 9:20" />
+                <f:selectItem itemValue="9:20 - 11:20" itemLabel="9:20 - 11:20" />
+                <f:selectItem itemValue="11:20 - 13:20" itemLabel="11:20 - 13:20" />
+            </h:selectManyCheckbox> <br/>
+
+            
+
+            Transporte:
+            <h:selectOneRadio id="sexo" value="#{registroEvento.sexo}">
+                <f:selectItem itemValue="m" itemLabel="Bus" />
+                <f:selectItem itemValue="f" itemLabel="Auto particular" />
+            </h:selectOneRadio> <br/>
+
+            <h:selectManyCheckbox value="#{registroEvento.claveMensaje}" layout="pageDirection">
+                <f:selectItem itemValue="Desea recibir mas informacion" itemLabel="Recibir más información" />
+
+            </h:selectManyCheckbox> <br/>
+
+
+
+            <h:commandButton value="Enviar"
+                             actionListener="#{registroEvento.registrar}"></h:commandButton>
+        </h:form>
+        <hr/>
+        <c:if test="#{registroEvento.nombres != null}">
+            <h4>Los datos ingresados son:</h4>
+            <ul>
+                <li>#{registroEvento.nombres}</li>
+                <c:if test="#{registroEvento.sexo == 'm'}">
+                    <li>Bus</li>
+                </c:if>
+                <c:if test="#{registroEvento.sexo == 'f'}">
+                    <li>Auto particular</li>
+                </c:if>
+                <ul>
+                    <c:forEach items="#{registroEvento.sisop}" var="sp">
+                        <li>#{sp}</li>
+                    </c:forEach>
+                    <c:forEach items="#{registroEvento.claveMensaje}" var="sp">
+                        <li>#{sp}</li>
+                    </c:forEach>
+                </ul>
+            </ul>
+        </c:if>
+    </h:body>
+</html>
